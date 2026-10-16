@@ -4,6 +4,19 @@ Moroccan plate recognition with a security-first platform around it: signed audi
 write-only encrypted camera credentials, city-scoped access, and a human confirming every
 watchlist match. See `CLAUDE.md` for the rules and `docs/` for design notes.
 
+## Screenshots
+
+Plates and camera coordinates are blurred.
+
+| | |
+|---|---|
+| ![Sign-in](docs/screenshots/01-login.jpg) Sign-in (password + authenticator code) | ![Overview](docs/screenshots/02-overview.jpg) Overview |
+| ![Live alerts](docs/screenshots/03-live-alerts.jpg) Live alerts: a person confirms every match | ![Evidence card](docs/screenshots/04-evidence-card.jpg) Evidence at capture and chain of custody |
+| ![Evidence vault](docs/screenshots/05-evidence-vault.jpg) Evidence vault (SHA-256 per frame) | ![Audit log](docs/screenshots/06-audit-log.jpg) Signed, hash-chained audit log |
+| ![Security center](docs/screenshots/07-security-center.jpg) Security center | ![Cities and cameras](docs/screenshots/08-cities-cameras.jpg) Cities and cameras: health |
+| ![Watchlists](docs/screenshots/09-watchlists.jpg) Watchlists | ![Users](docs/screenshots/10-users.jpg) Accounts and roles |
+| ![Model performance](docs/screenshots/11-model-performance.jpg) Model performance | ![Overview, light theme](docs/screenshots/02-overview-light.jpg) Light theme |
+
 ## Run it (Windows, PowerShell, from the repo root)
 
 Prerequisites: Python 3.11+ with `.venv`, Node 22+, PostgreSQL 14+ (native or Docker).
