@@ -2,7 +2,7 @@
 
 Moroccan plate recognition with a security-first platform around it: signed audit chain,
 write-only encrypted camera credentials, city-scoped access, and a human confirming every
-watchlist match. See `CLAUDE.md` for the rules and `docs/` for design notes.
+watchlist match. See `CONTRIBUTING.md` for the rules and `docs/` for design notes.
 
 ## Screenshots
 

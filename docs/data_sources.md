@@ -1,7 +1,7 @@
 # Data sources
 
 Every external dataset used by the project, what it is used for, and under which terms.
-Rule (CLAUDE.md): public, synthetic, or consented data only. `data/` is never committed.
+Rule (CONTRIBUTING.md): public, synthetic, or consented data only. `data/` is never committed.
 
 ## CCPD2019 (Chinese City Parking Dataset)
 
