@@ -1,0 +1,307 @@
+@import "tailwindcss";
+@import "./tokens.css";
+
+/*
+ * Tailwind theme = the tokens. `--color-*: initial` removes Tailwind's default palette,
+ * so a hard-coded colour such as bg-blue-500 does not exist and cannot slip in.
+ */
+@theme inline {
+  --color-*: initial;
+  /* pure white and black stay, for text and scrims over camera video */
+  --color-white: #fff;
+  --color-black: #000;
+  --color-bg: var(--bg);
+  --color-bg-subtle: var(--bg-subtle);
+  --color-surface: var(--surface);
+  --color-surface-raised: var(--surface-raised);
+  --color-glass: var(--glass);
+  --color-overlay: var(--overlay);
+  --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
+  --color-text: var(--text);
+  --color-muted: var(--text-muted);
+  --color-faint: var(--text-faint);
+  --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
+  --color-accent-soft: var(--accent-soft);
+  --color-accent-fg: var(--accent-fg);
+  --color-accent-2: var(--accent-2);
+  --color-ring: var(--ring);
+  --color-gold: var(--gold);
+  --color-gold-strong: var(--gold-strong);
+  --color-gold-soft: var(--gold-soft);
+  --color-ok: var(--ok);
+  --color-ok-soft: var(--ok-soft);
+  --color-warn: var(--warn);
+  --color-warn-soft: var(--warn-soft);
+  --color-danger: var(--danger);
+  --color-danger-soft: var(--danger-soft);
+  --color-plate-ink: var(--plate-ink);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-chart-6: var(--chart-6);
+
+  --radius-xs: var(--radius-xs);
+  --radius-sm: var(--radius-sm);
+  --radius-md: var(--radius-md);
+  --radius-lg: var(--radius-lg);
+
+  --shadow-1: var(--shadow-1);
+  --shadow-2: var(--shadow-2);
+  --shadow-3: var(--shadow-3);
+  --shadow-glow: var(--glow);
+
+  --font-display: var(--font-display);
+  --font-serif: var(--font-serif);
+  --font-sans: var(--font-sans);
+  --font-mono: var(--font-mono);
+
+  --ease-out: var(--ease-out);
+}
+
+@utility glass {
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(20px) saturate(160%);
+  -webkit-backdrop-filter: blur(20px) saturate(160%);
+}
+
+@utility hairline {
+  border: 1px solid var(--border);
+}
+
+@utility tabular {
+  font-variant-numeric: tabular-nums;
+}
+
+@utility focus-ring {
+  outline: none;
+  &:focus-visible {
+    box-shadow: 0 0 0 3px var(--ring);
+  }
+}
+
+@utility shimmer {
+  background: linear-gradient(90deg, var(--bg-subtle) 0%, var(--surface-raised) 50%, var(--bg-subtle) 100%);
+  background-size: 200% 100%;
+  animation: shimmer 1.4s linear infinite;
+}
+
+/* Brand gradient painted into text: "Secure", the last word of page titles. */
+@utility text-gradient {
+  background: var(--grad-brand);
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: gradient-pan 9s ease-in-out infinite alternate;
+}
+
+@utility bg-brand {
+  background: var(--grad-brand);
+}
+
+@layer components {
+  /*
+   * Card surface: translucent fill, a 1px gradient hairline drawn with a mask (::before), and a
+   * soft spotlight that follows the pointer (::after, position set by <Card> via --mx / --my).
+   */
+  .card-surface {
+    background: var(--card-bg);
+    backdrop-filter: blur(16px) saturate(150%);
+    -webkit-backdrop-filter: blur(16px) saturate(150%);
+  }
+  .card-surface::before,
+  .card-surface::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+  }
+  .card-surface::before {
+    padding: 1px;
+    background: var(--card-border);
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
+  }
+  .card-surface::after {
+    background: radial-gradient(420px circle at var(--mx, 50%) var(--my, 0%), var(--spot), transparent 45%);
+    opacity: 0;
+    transition: opacity var(--dur-slow) var(--ease-out);
+  }
+  .card-surface:hover::after {
+    opacity: 1;
+  }
+
+  /* Primary action: gradient fill, top highlight and a light sweep on hover. */
+  .btn-primary {
+    position: relative;
+    overflow: hidden;
+    color: #fff;
+    background: var(--grad-primary);
+    box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.25), var(--glow);
+  }
+  .btn-primary::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(105deg, transparent 35%, rgb(255 255 255 / 0.35) 50%, transparent 65%);
+    transform: translateX(-120%);
+    pointer-events: none;
+  }
+  .btn-primary:hover:not(:disabled)::after {
+    transform: translateX(120%);
+    transition: transform 700ms var(--ease-out);
+  }
+  .btn-primary:hover:not(:disabled) {
+    filter: brightness(1.08);
+  }
+
+  /* Laser line that sweeps a viewfinder: the logo tile and the login hero. */
+  .scan-beam {
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--accent-2), transparent);
+    box-shadow: 0 0 12px 2px var(--accent-2);
+    animation: scan 3.2s var(--ease-out) infinite;
+    pointer-events: none;
+  }
+}
+
+/* Leaflet pieces (features/cameras/map.tsx), themed with the tokens. */
+@layer components {
+  .anpr-map { font-family: var(--font-sans); }
+  .anpr-map .leaflet-control-zoom a { background: var(--surface-raised); color: var(--text); border-color: var(--border); }
+  .anpr-marker { background: none; border: 0; filter: drop-shadow(0 4px 8px rgb(0 0 0 / 0.25)); }
+  .anpr-cone { stroke: var(--accent-2); fill: var(--accent-2); fill-opacity: 0.2; }
+  .anpr-cluster {
+    display: grid; place-items: center; width: 38px; height: 38px; border-radius: 999px;
+    background: var(--grad-primary); color: #fff; font: 600 13px var(--font-mono);
+    box-shadow: 0 0 0 5px color-mix(in oklab, var(--accent) 25%, transparent), var(--glow);
+  }
+  .anpr-map .leaflet-popup-content-wrapper, .anpr-map .leaflet-popup-tip {
+    background: var(--surface-raised); color: var(--text); box-shadow: var(--shadow-3); border: 1px solid var(--border);
+  }
+  .anpr-map .leaflet-popup-content { margin: 12px 14px; }
+  .anpr-popup-title { font: 600 14px var(--font-display); }
+  .anpr-popup-meta { margin-top: 2px; font-size: 12px; color: var(--text-muted); }
+  .anpr-popup-btn {
+    margin-top: 8px; padding: 4px 10px; border-radius: var(--radius-xs); font-size: 12px; font-weight: 600;
+    color: #fff; background: var(--grad-primary); cursor: pointer;
+  }
+  .anpr-map .leaflet-marker-icon:focus-visible { outline: 3px solid var(--ring); border-radius: 8px; }
+}
+
+@keyframes shimmer {
+  from { background-position: 200% 0; }
+  to { background-position: -200% 0; }
+}
+
+@keyframes live-pulse {
+  0% { transform: scale(1); opacity: 0.55; }
+  100% { transform: scale(2.6); opacity: 0; }
+}
+
+@keyframes gradient-pan {
+  from { background-position: 0% 50%; }
+  to { background-position: 100% 50%; }
+}
+
+@keyframes draw-check {
+  from { stroke-dashoffset: 30; }
+  to { stroke-dashoffset: 0; }
+}
+
+@keyframes scan {
+  0% { top: 8%; opacity: 0; }
+  15% { opacity: 1; }
+  85% { opacity: 1; }
+  100% { top: 92%; opacity: 0; }
+}
+
+@keyframes plate-sheen {
+  0%, 55% { transform: translateX(0) skewX(-12deg); }
+  100% { transform: translateX(520%) skewX(-12deg); }
+}
+
+@keyframes beacon {
+  0% { transform: scale(0.65); opacity: 0.75; }
+  100% { transform: scale(1.75); opacity: 0; }
+}
+
+@keyframes aurora {
+  0% { transform: translate3d(0, 0, 0) rotate(0deg) scale(1); }
+  50% { transform: translate3d(-4%, 3%, 0) rotate(8deg) scale(1.08); }
+  100% { transform: translate3d(3%, -2%, 0) rotate(-6deg) scale(1.02); }
+}
+
+@layer base {
+  html {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  body {
+    min-height: 100vh;
+  }
+  /* Ambient backdrop: slow aurora light, then a zellige star lattice fading out from the top. */
+  body::before,
+  body::after {
+    content: "";
+    position: fixed;
+    pointer-events: none;
+    z-index: -1;
+  }
+  body::before {
+    inset: -20%;
+    background:
+      radial-gradient(40% 35% at 78% 12%, var(--aurora-1), transparent 70%),
+      radial-gradient(32% 30% at 12% 88%, var(--aurora-2), transparent 70%),
+      radial-gradient(28% 26% at 45% 55%, var(--aurora-3), transparent 70%);
+    animation: aurora 32s ease-in-out infinite alternate;
+  }
+  body::after {
+    inset: 0;
+    background: var(--pattern);
+    -webkit-mask-image:
+      url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='64' height='64' viewBox='0 0 64 64'><g fill='none' stroke='black' stroke-width='1'><rect x='20' y='20' width='24' height='24'/><rect x='20' y='20' width='24' height='24' transform='rotate(45 32 32)'/><path d='M0 0L11 11M64 0L53 11M0 64L11 53M64 64L53 53'/></g></svg>"),
+      radial-gradient(120% 70% at 50% 0%, #000 0%, transparent 75%);
+    -webkit-mask-composite: source-in;
+    mask-image:
+      url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='64' height='64' viewBox='0 0 64 64'><g fill='none' stroke='black' stroke-width='1'><rect x='20' y='20' width='24' height='24'/><rect x='20' y='20' width='24' height='24' transform='rotate(45 32 32)'/><path d='M0 0L11 11M64 0L53 11M0 64L11 53M64 64L53 53'/></g></svg>"),
+      radial-gradient(120% 70% at 50% 0%, #000 0%, transparent 75%);
+    mask-size: 64px 64px, 100% 100%;
+    -webkit-mask-size: 64px 64px, 100% 100%;
+    mask-repeat: repeat, no-repeat;
+    -webkit-mask-repeat: repeat, no-repeat;
+    mask-composite: intersect;
+  }
+  h1, h2, h3 {
+    font-family: var(--font-display);
+    letter-spacing: -0.02em;
+  }
+  ::selection {
+    background: var(--accent-soft);
+  }
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: var(--border-strong) transparent;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

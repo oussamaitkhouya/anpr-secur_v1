@@ -1,0 +1,33 @@
+# Watchlist matcher settings (src/anpr/pipeline/matcher.py).
+
+# Fuzzy matching: a read may differ from a watchlist plate by at most this many edits
+# (Levenshtein distance on the canonical form), and every differing character must be one the
+# OCR was unsure about (confidence below low_char_confidence).
+max_distance: 1
+low_char_confidence: 0.60
+
+# An exact plate match from a read below this confidence is reported as fuzzy_match, so the
+# reviewer knows the plate itself is uncertain.
+min_plate_confidence: 0.85
+
+# Attribute normalisation. Values are compared after lower-casing and these mappings.
+# Unknown or empty attributes never count as a disagreement.
+unknown_values: ["", "unknown", "inconnu", "n/a", "na", "?"]
+color_synonyms:
+  grey: gray
+  gris: gray
+  blanc: white
+  noir: black
+  rouge: red
+  bleu: blue
+  vert: green
+  jaune: yellow
+  argent: silver
+  argenté: silver
+  marron: brown
+  beige: beige
+make_synonyms:
+  vw: volkswagen
+  mercedes: mercedes-benz
+  mercedes benz: mercedes-benz
+  chevy: chevrolet

@@ -1,0 +1,28 @@
+venv/
+__pycache__/
+.idea/
+/data/
+*.pt
+*.pth
+*.onnx
+.env
+.env.bak
+runs/
+/models/
+
+# dashboard (Node)
+dashboard/node_modules/
+dashboard/dist/
+dashboard/.env.local
+dashboard/*.tsbuildinfo
+dashboard/*.log
+dashboard/_update-notifier-last-checked
+
+# camera worker evidence frames (personal data, kept locally, never committed)
+var/
+
+# local tooling
+.venv/
+.claude/
+.pytest_cache/
+.ruff_cache/

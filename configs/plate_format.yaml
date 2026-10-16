@@ -1,0 +1,50 @@
+# Moroccan licence plate format.
+# Canonical form: number|letter|region  (e.g. 12345|ب|6)
+#
+# TODO: verify every value below against the official Moroccan rules.
+# Set `verified: true` on a section once you have checked it and noted the source.
+
+letters:
+  verified: false
+  source: TODO
+  values: [أ, ب, ج, د, ه, و, ط, ش]   # TODO: confirm the complete letter set
+
+region:
+  verified: false
+  source: TODO
+  min: 1    # TODO: confirm
+  max: 89   # TODO: confirm
+
+# style: colours used by the synthetic generator (src/anpr/data/plate_generator.py).
+# Any Pillow colour name or #rrggbb works.
+plate_types:
+  private:
+    verified: false
+    description: TODO   # standard number|letter|region plate
+    pattern: TODO
+    style: {background: white, text: black}   # TODO: verify colours
+  taxi:
+    verified: false
+    description: TODO
+    pattern: TODO
+    style: {background: white, text: black}   # TODO: verify colours
+  temporary:
+    verified: false
+    description: TODO   # e.g. WW plates for newly registered vehicles
+    pattern: TODO
+    style: {background: white, text: black}   # TODO: verify colours
+  police:
+    verified: false
+    description: TODO
+    pattern: TODO
+    style: {background: white, text: black}   # TODO: verify colours
+  government:
+    verified: false
+    description: TODO   # e.g. ministry / administration vehicles
+    pattern: TODO
+    style: {background: white, text: black}   # TODO: verify colours
+  diplomatic:
+    verified: false
+    description: TODO   # e.g. CD / corps diplomatique
+    pattern: TODO
+    style: {background: white, text: black}   # TODO: verify colours

@@ -1,0 +1,173 @@
+/*
+ * Design tokens: the only place colours, radii, shadows, fonts and motion are defined.
+ * Components use them through Tailwind utilities generated in index.css (bg-surface,
+ * text-muted, shadow-2, rounded-lg, ...). Dark mode redefines the same names.
+ * Text colours are chosen for WCAG AA (>= 4.5:1) on --bg and --surface.
+ *
+ * Theme: "Majorelle Night". Majorelle blue for the brand, saffron for critical items,
+ * mint for healthy states, over a faint zellige star texture (see index.css).
+ */
+:root {
+  color-scheme: light;
+
+  /* surfaces */
+  --bg: #f5f4fb;
+  --bg-subtle: #ecebf6;
+  --surface: #ffffff;
+  --surface-raised: #ffffff;
+  --glass: rgb(255 255 255 / 0.72);
+  --glass-border: rgb(255 255 255 / 0.85);
+  --overlay: rgb(19 19 43 / 0.36);
+
+  /* lines */
+  --border: #e2e0f0;
+  --border-strong: #c9c6e0;
+
+  /* text */
+  --text: #13132b;
+  --text-muted: #4e5070;
+  --text-faint: #64668a;
+
+  /* accent: Majorelle blue, with a mint second stop for gradients */
+  --accent: #4f3fe0;
+  --accent-hover: #3f30c8;
+  --accent-soft: #ebe8ff;
+  --accent-fg: #ffffff;
+  --accent-2: #0e9f8c;
+  --ring: rgb(79 63 224 / 0.4);
+
+  /* saffron: critical items only. --gold for fills and borders, --gold-strong for text */
+  --gold: #c48a12;
+  --gold-strong: #7a5200;
+  --gold-soft: #fdf1d6;
+
+  /* status */
+  --ok: #0f7a5a;
+  --ok-soft: #dcf5ea;
+  --warn: #9a4a00;
+  --warn-soft: #fdecd8;
+  --danger: #c8293b;
+  --danger-soft: #fde4e7;
+
+  /* charts (categorical, in order) */
+  --chart-1: #4f3fe0;
+  --chart-2: #0e9f8c;
+  --chart-3: #c48a12;
+  --chart-4: #2f9e6b;
+  --chart-5: #d9577a;
+  --chart-6: #8a8aa8;
+  --chart-grid: #e7e5f3;
+
+  /* plate art (generated SVG placeholders) */
+  --plate-bg: #fbfaf6;
+  --plate-ink: #15141b;
+  --scene-sky: #dcd9ec;
+  --scene-road: #9b98b0;
+  --scene-car: #6b6984;
+
+  /* brand surfaces */
+  --grad-brand: linear-gradient(120deg, #4f3fe0 0%, #9b4dff 48%, #0e9f8c 100%);
+  --grad-primary: linear-gradient(135deg, #5b4bf0 0%, #7c4dff 100%);
+  --card-bg: linear-gradient(180deg, rgb(255 255 255 / 0.94), rgb(255 255 255 / 0.8));
+  --card-border: linear-gradient(160deg, rgb(19 19 43 / 0.07), rgb(19 19 43 / 0.04) 45%, rgb(79 63 224 / 0.22));
+  --spot: rgb(79 63 224 / 0.07);
+  --aurora-1: rgb(79 63 224 / 0.16);
+  --aurora-2: rgb(14 159 140 / 0.1);
+  --aurora-3: rgb(196 138 18 / 0.1);
+  --pattern: rgb(79 63 224 / 0.06);
+
+  /* shape */
+  --radius-xs: 6px;
+  --radius-sm: 11px;
+  --radius-md: 16px;
+  --radius-lg: 22px;
+
+  /* elevation: soft, layered, faintly tinted */
+  --shadow-1: 0 1px 1px rgb(19 19 43 / 0.03), 0 1px 3px rgb(19 19 43 / 0.06);
+  --shadow-2: 0 1px 2px rgb(19 19 43 / 0.04), 0 12px 32px -14px rgb(49 38 160 / 0.18);
+  --shadow-3: 0 2px 6px rgb(19 19 43 / 0.05), 0 30px 60px -18px rgb(49 38 160 / 0.3);
+  --glow: 0 0 0 1px rgb(79 63 224 / 0.18), 0 12px 36px -12px rgb(79 63 224 / 0.45);
+
+  /* type */
+  --font-display: "Bricolage Grotesque", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "Instrument Serif", ui-serif, Georgia, serif;
+  --font-sans: "Geist", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "Geist Mono", ui-monospace, "Cascadia Mono", monospace;
+
+  /* motion */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --dur-fast: 120ms;
+  --dur-base: 220ms;
+  --dur-slow: 420ms;
+
+  /* layout */
+  --sidebar-w: 256px;
+  --sidebar-w-collapsed: 76px;
+  --topbar-h: 68px;
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+
+  --bg: #070816;
+  --bg-subtle: #11132b;
+  --surface: #0f1128;
+  --surface-raised: #161936;
+  --glass: rgb(12 14 34 / 0.6);
+  --glass-border: rgb(255 255 255 / 0.07);
+  --overlay: rgb(2 2 10 / 0.62);
+
+  --border: #22254a;
+  --border-strong: #33376a;
+
+  --text: #eef0ff;
+  --text-muted: #a3a6c9;
+  --text-faint: #8a8db3;
+
+  --accent: #8b80ff;
+  --accent-hover: #a59cff;
+  --accent-soft: #1d1b4a;
+  --accent-fg: #0a0a1f;
+  --accent-2: #34e0c8;
+  --ring: rgb(139 128 255 / 0.55);
+
+  --gold: #f5b942;
+  --gold-strong: #ffd07a;
+  --gold-soft: #2a2010;
+
+  --ok: #3ddc97;
+  --ok-soft: #0d2a22;
+  --warn: #ffa94d;
+  --warn-soft: #2c1d0c;
+  --danger: #ff6b7a;
+  --danger-soft: #2e1219;
+
+  --chart-1: #8b80ff;
+  --chart-2: #34e0c8;
+  --chart-3: #f5b942;
+  --chart-4: #3ddc97;
+  --chart-5: #ff8fa3;
+  --chart-6: #7c80a8;
+  --chart-grid: #1b1e3d;
+
+  --plate-bg: #eceaf4;
+  --plate-ink: #15141b;
+  --scene-sky: #22254a;
+  --scene-road: #33365e;
+  --scene-car: #4d5080;
+
+  --grad-brand: linear-gradient(120deg, #a59cff 0%, #d08bff 45%, #34e0c8 100%);
+  --grad-primary: linear-gradient(135deg, #6d5efc 0%, #9356ff 100%);
+  --card-bg: linear-gradient(180deg, rgb(24 27 62 / 0.72), rgb(13 15 36 / 0.72));
+  --card-border: linear-gradient(160deg, rgb(255 255 255 / 0.14), rgb(255 255 255 / 0.03) 42%, rgb(139 128 255 / 0.28));
+  --spot: rgb(139 128 255 / 0.12);
+  --aurora-1: rgb(107 92 255 / 0.32);
+  --aurora-2: rgb(52 224 200 / 0.14);
+  --aurora-3: rgb(245 185 66 / 0.1);
+  --pattern: rgb(255 255 255 / 0.035);
+
+  --shadow-1: 0 1px 2px rgb(0 0 0 / 0.35);
+  --shadow-2: 0 1px 2px rgb(0 0 0 / 0.3), 0 16px 40px -16px rgb(0 0 0 / 0.7);
+  --shadow-3: 0 2px 8px rgb(0 0 0 / 0.4), 0 36px 72px -20px rgb(0 0 0 / 0.85);
+  --glow: 0 0 0 1px rgb(139 128 255 / 0.3), 0 14px 44px -12px rgb(124 108 255 / 0.6);
+}

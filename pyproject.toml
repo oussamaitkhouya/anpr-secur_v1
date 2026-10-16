@@ -1,0 +1,10 @@
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]
+
+[tool.alembic]
+# Migrations for the PostgreSQL backend. Run from the repo root: alembic upgrade head
+# The database URL comes from MIGRATION_DATABASE_URL (see src/anpr/db/migrations/env.py).
+script_location = "%(here)s/src/anpr/db/migrations"
+prepend_sys_path = ["src"]
+file_template = "%%(rev)s_%%(slug)s"

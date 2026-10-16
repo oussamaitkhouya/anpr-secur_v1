@@ -1,0 +1,29 @@
+# PostgreSQL for the ANPR Secure backend.
+#   docker compose up -d db
+# Values come from .env (copy .env.example and fill it in). Nothing secret is written here.
+#
+# Two database roles (created by configs/postgres/init-roles.sh on the first start):
+#   anpr_owner  owns the schema, runs Alembic migrations
+#   anpr_app    what the API connects as: no DDL, and only SELECT/INSERT on audit_entries
+services:
+  db:
+    image: postgres:17.6-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: anpr_owner
+      POSTGRES_PASSWORD: ${POSTGRES_OWNER_PASSWORD:?set POSTGRES_OWNER_PASSWORD in .env}
+      POSTGRES_DB: anpr
+      APP_DB_PASSWORD: ${APP_DB_PASSWORD:?set APP_DB_PASSWORD in .env}
+    ports:
+      - "127.0.0.1:5432:5432"   # loopback only: never expose the database on the network
+    volumes:
+      - anpr_pgdata:/var/lib/postgresql/data
+      - ./configs/postgres/init-roles.sh:/docker-entrypoint-initdb.d/10-init-roles.sh:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U anpr_owner -d anpr"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+volumes:
+  anpr_pgdata:
